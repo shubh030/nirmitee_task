@@ -6,8 +6,8 @@ import 'package:nirmitee/presentation/cubits/bloc_observer.dart';
 Future<void> configMain() async {
   WidgetsFlutterBinding.ensureInitialized();
   try {
-    configureDependencies(); // Initialize GetIt
-    // Bloc.observer = MyBlocObserver(); // Set up BlocObserver
+    configureDependencies();
+    Bloc.observer = MyBlocObserver();
   } catch (e) {
     debugPrint('Error during app initialization: $e');
   }

@@ -14,13 +14,24 @@ class GridWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final gridData = grid.grid;
+    final screenWidth = MediaQuery.of(context).size.width;
+    final screenHeight = MediaQuery.of(context).size.height;
+
+    final crossAxisCount = gridData[0].length;
+    final maxItemWidth = screenWidth / crossAxisCount;
+    final maxItemHeight = screenHeight / gridData.length;
+
+    final itemSize =
+        maxItemWidth < maxItemHeight ? maxItemWidth : maxItemHeight;
 
     return GridView.builder(
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: gridData[0].length,
-        crossAxisSpacing: 4.0,
-        mainAxisSpacing: 4.0,
+        crossAxisCount: crossAxisCount,
+        childAspectRatio: 1.0,
+        crossAxisSpacing: 8.0,
+        mainAxisSpacing: 8.0,
       ),
+      // physics: const NeverScrollableScrollPhysics(),
       itemCount: gridData.length * gridData[0].length,
       itemBuilder: (context, index) {
         final row = index ~/ gridData[0].length;
@@ -30,8 +41,10 @@ class GridWidget extends StatelessWidget {
             .any((coordinate) => coordinate[0] == row && coordinate[1] == col);
 
         return Container(
+          width: itemSize,
+          height: itemSize,
           decoration: BoxDecoration(
-            borderRadius: const BorderRadius.all(Radius.circular(20)),
+            borderRadius: BorderRadius.circular(8),
             color: isHighlighted ? Colors.green[200] : Colors.blueAccent[100],
             border: Border.all(color: Colors.black),
           ),
@@ -39,7 +52,7 @@ class GridWidget extends StatelessWidget {
             child: Text(
               gridData[row][col],
               style: const TextStyle(
-                fontSize: 20,
+                fontSize: 16,
                 fontWeight: FontWeight.bold,
                 color: Colors.black,
               ),

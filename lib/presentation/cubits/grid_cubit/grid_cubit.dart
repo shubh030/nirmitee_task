@@ -42,8 +42,10 @@ class GridCubit extends Cubit<GridState> {
         wordCoordinates: wordCoordinates,
       ));
     } else {
-      // Do not emit a new state; notify UI of the error
-      // UI will handle this without clearing the current grid
+      emit(GridCreated(
+        grid: (state as GridCreated).grid,
+        wordCoordinates: [],
+      ));
     }
   }
 

@@ -35,3 +35,7 @@ class GridError extends GridState {
   @override
   List<Object?> get props => [errorMessage];
 }
+
+class GridWordFound extends GridState {}
+
+class GridWordNotFound extends GridState {}
